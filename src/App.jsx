@@ -4,6 +4,7 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 import JokeComponent from "./joke-component";
+
 function App() {
   const [count, setCount] = useState(0);
 

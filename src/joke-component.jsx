@@ -6,11 +6,16 @@ function JokeComponent() {
 
   // useEffect to fetch the joke
   useEffect(() => {
-    fetch("https://api.chucknorris.io/jokes/random")
-      .then((response) => response.json())
+    fetchJokeFromApi()
       .then((data) => setJoke(data.value))
       .catch((error) => console.error("Error fetching joke:", error));
   }, []); // Empty dependency array means this runs once on mount
+
+  function handleClick() {
+    fetchJokeFromApi()
+      .then((data) => setJoke(data.value))
+      .catch((error) => console.error("Error fetching joke:", error));
+  }
 
   // Render the joke
   return (
@@ -21,12 +26,10 @@ function JokeComponent() {
   );
 }
 
-
-function handleClick(){
-
-
-
+function fetchJokeFromApi() {
+  return fetch("https://api.chucknorris.io/jokes/random")
+    .then((response) => response.json())
+    .catch((error) => console.error("Error fetching joke:", error));
 }
-
 
 export default JokeComponent;

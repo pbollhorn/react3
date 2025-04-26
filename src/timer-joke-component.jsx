@@ -7,10 +7,15 @@ function TimerJokeComponent() {
   // useEffect
   useEffect(() => {
     placeNewJoke();
+    const intervalId = setInterval(placeNewJoke, 10000);
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []); // Empty dependency array means this runs once on mount
 
   async function placeNewJoke() {
-    const jokeString = await fetchChuckNorrisJokeFromApi();
+    const jokeString = await fetchDadJokeFromApi();
+    console.log(jokeString);
     setJoke(jokeString);
   }
 
@@ -18,21 +23,25 @@ function TimerJokeComponent() {
   return (
     <div>
       <p>{joke}</p>
-      <button onClick={placeNewJoke}>Get new joke</button>
     </div>
   );
 }
 
-async function fetchChuckNorrisJokeFromApi() {
+async function fetchDadJokeFromApi() {
   try {
-    const response = await fetch("https://api.chucknorris.io/jokes/random");
+    const response = await fetch("https://icanhazdadjoke.com/", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
 
     if (!response.ok) {
       return "[Failed in getting the joke]";
     }
 
     const data = await response.json();
-    return data.value; // data.value is the string with the joke
+    return data.joke; // data.joke is the string with the joke
   } catch {
     return "[[[Something unexpected happend]]]";
   }

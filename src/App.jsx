@@ -5,6 +5,7 @@ import "./App.css";
 
 import JokeComponent from "./joke-component";
 import JokeComponentAlternative from "./joke-component-alternative";
+import TimerJokeComponent from "./timer-joke-component";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -12,8 +13,10 @@ function App() {
   return (
     <>
       <JokeComponent />
-      <br/>
+      <br />
       <JokeComponentAlternative />
+      <br />
+      <TimerJokeComponent />
 
       <div>
         <a href="https://vite.dev" target="_blank">

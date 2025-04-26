@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function JokeComponent() {
+function JokeComponentAlternative() {
   // State to store the joke
   const [joke, setJoke] = useState("");
 
@@ -27,18 +27,19 @@ function JokeComponent() {
   );
 }
 
-function fetchChuckNorrisJokeFromApi() {
-  return fetch("https://api.chucknorris.io/jokes/random")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("HTTP error! status: " + response.status);
-      }
+async function fetchChuckNorrisJokeFromApi() {
+  try {
+    const response = await fetch("https://api.chucknorris.io/jokes/random");
 
-      return response.json();
-    })
-    .then((data) => {
-      return data.value; // data.value is the string with the joke
-    });
+    if (!response.ok) {
+      return "[Failed in getting the joke]";
+    }
+
+    const data = await response.json();
+    return data.value; // data.value is the string with the joke
+  } catch {
+    return "[[[Something unexpected happend]]]";
+  }
 }
 
-export default JokeComponent;
+export default JokeComponentAlternative;

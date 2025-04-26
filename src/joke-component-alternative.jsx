@@ -9,13 +9,9 @@ function JokeComponentAlternative() {
     placeNewJoke();
   }, []); // Empty dependency array means this runs once on mount
 
-  function placeNewJoke() {
-    fetchChuckNorrisJokeFromApi()
-      .then((jokeString) => setJoke(jokeString))
-      .catch((error) => {
-        setJoke("(Could not get joke)");
-        console.error("Error fetching joke:", error);
-      });
+  async function placeNewJoke() {
+    const jokeString = await fetchChuckNorrisJokeFromApi();
+    setJoke(jokeString);
   }
 
   // Render the joke
